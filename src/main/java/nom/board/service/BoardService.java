@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +39,10 @@ public class BoardService {
         for (BoardDTO boardEntity: boardDTOs) { 
             result+=String.format("<li hx-on:click=\"window.location.href='/board/%d'\">",boardEntity.getId());
             result+="<fieldset>";
+            // result+=String.format("<legend>%s</legend>",HtmlUtils.htmlEscape(boardEntity.getTitle()));
             result+=String.format("<legend>%s</legend>",boardEntity.getTitle());
             result+="<pre>";
+            // result+=HtmlUtils.htmlEscape(boardEntity.getContents());
             result+=boardEntity.getContents();
             result+="</pre>";
             result+="<small>";
