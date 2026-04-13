@@ -1,0 +1,13 @@
+# HTMX로 만든 게시판
+htmx가 좋아보여서 한 번 써봤습니다.
+
+mysql은 설정이 귀찮아서 sqlite를 썼습니다..
+
+다소 코드가 더럽습니다. 언젠가 정리 한 번 해야하는데..
+
+## Build
+```sh
+# gradlew bootRun도 가능
+$ gradlew build
+$ gradlew run
+```
