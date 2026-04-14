@@ -15,7 +15,7 @@
         <span th:text="${errorMessage}"></span>
     </div>
 
-    <form th:hx-put="@{/board/{id}(id=${board.id})}" hx-swap="outerHTML">
+    <form th:hx-put="@{/board/{id}(id=${board.id})}" hx-target="body" hx-push-url="true" hx-swap="innerHTML">
         <input placeholder="제목" type="text" name="title" th:value="${board.title}">
         <hr>
         <textarea placeholder="내용" cols="50" rows="20" name="contents">[[${board.contents}]]</textarea><br>
