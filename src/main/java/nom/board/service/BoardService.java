@@ -58,9 +58,10 @@ public class BoardService {
     }
 
     @Transactional
-    public void update(BoardDTO boardDTO) {
+    public BoardDTO update(BoardDTO boardDTO) {
         BoardEntity boardEntity = boardRepo.findById(boardDTO.getId()).orElseThrow(()->new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
         boardEntity.update(boardDTO);
+        return BoardDTO.toBoardDTO(boardEntity);
     }
 
     public void delete(Long id) {

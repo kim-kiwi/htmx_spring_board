@@ -56,9 +56,9 @@ public class HomeController {
 
     @PutMapping("/board/{id}")
     public String update(@PathVariable Long id, BoardDTO boardDTO, Model model) {
+        boardDTO.setId(id);
         try {
-            boardService.update(boardDTO);
-            BoardDTO board = boardService.findById(id);
+            BoardDTO board = boardService.update(boardDTO);
             model.addAttribute("board",board);
             return "details";
         } catch (IllegalArgumentException e) {
