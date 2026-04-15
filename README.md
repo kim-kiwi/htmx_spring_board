@@ -1,15 +1,18 @@
-# HTMX로 만든 게시판
-htmx가 좋아보여서 한 번 써봤습니다.
+# 더모먼트 백엔드 과제
 
-mysql은 설정이 귀찮아서 sqlite를 썼습니다..
+## POST /create
+![게시물등록](./docs/게시물등록.png)
 
-다소 코드가 더럽습니다. 언젠가 정리 한 번 해야하는데..
+## GET /
+![게시물목록조회1](./docs/게시물목록조회1.png)
 
-XSS 취약점이 존재하는데 재밌어서 취약점 수정 코드는 주석처리 해뒀습니다.
+## GET /view/{id}
+![게시물조회](./docs/게시물조회.png)
 
-## Build
-```sh
-# gradlew bootRun도 가능
-$ gradlew build
-$ gradlew run
-```
+## PATCH /update/{id}
+![게시물수정](./docs/게시물수정.png)
+![게시물조회2](./docs/게시물조회2.png)
+
+## DELETE /remove/{id}
+![게시물삭제](./docs/게시물삭제.png)
+![게시물조회3](./docs/게시물조회3.png)

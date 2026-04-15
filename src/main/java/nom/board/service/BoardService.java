@@ -21,47 +21,27 @@ import nom.board.repository.BoardRepository;
 public class BoardService {
     private final BoardRepository boardRepo;
 
-    public void save(BoardDTO boardDTO) {
+    public BoardEntity save(BoardDTO boardDTO) {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         boardRepo.save(boardEntity);
+        return boardEntity;
     }
 
     public BoardDTO findById(Long id) {
         BoardEntity boardEntity = boardRepo.findById(id).orElseThrow();
-        return BoardDTO.toBoardDTO(boardEntity);
+        return BoardDTO.fromEntity(boardEntity);
     }
 
-    public String getBoardListHTML(int page) {
-        Pageable pageable = PageRequest.of(page,5, Sort.by("createdAt").descending());
-        Page<BoardEntity> resultPage = boardRepo.findAll(pageable);
-        List<BoardDTO> boardDTOs = resultPage.getContent().stream().map(BoardDTO::toBoardDTO).toList();
-        String result = "";
-        for (BoardDTO boardEntity: boardDTOs) { 
-            result+=String.format("<li hx-on:click=\"window.location.href='/board/%d'\">",boardEntity.getId());
-            result+="<fieldset>";
-            // result+=String.format("<legend>%s</legend>",HtmlUtils.htmlEscape(boardEntity.getTitle()));
-            result+=String.format("<legend>%s</legend>",boardEntity.getTitle());
-            result+="<pre>";
-            // result+=HtmlUtils.htmlEscape(boardEntity.getContents());
-            result+=boardEntity.getContents();
-            result+="</pre>";
-            result+="<small>";
-            result+=boardEntity.getCreatedAt();
-            result+="</small>";
-            result+="</fieldset>";
-            result+="</li>";
-        }
-        if (resultPage.hasNext()) {
-            result+=String.format("<div hx-get=\"/api/list?page=%d\" hx-trigger=\"revealed\" hx-swap=\"outerHTML\"></div>",page+1);
-        }
-        return result;
+    public List<BoardDTO> getBoardList() {
+        List<BoardDTO> boardDTOs = boardRepo.findAll().stream().map(BoardDTO::fromEntity).toList();
+        return boardDTOs;
     }
 
     @Transactional
     public BoardDTO update(BoardDTO boardDTO) {
         BoardEntity boardEntity = boardRepo.findById(boardDTO.getId()).orElseThrow(()->new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
         boardEntity.update(boardDTO);
-        return BoardDTO.toBoardDTO(boardEntity);
+        return BoardDTO.fromEntity(boardEntity);
     }
 
     public void delete(Long id) {
