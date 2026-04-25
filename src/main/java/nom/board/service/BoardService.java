@@ -21,10 +21,10 @@ import nom.board.repository.BoardRepository;
 public class BoardService {
     private final BoardRepository boardRepo;
 
-    public BoardEntity save(BoardDTO boardDTO) {
+    public BoardDTO save(BoardDTO boardDTO) {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         boardRepo.save(boardEntity);
-        return boardEntity;
+        return BoardDTO.fromEntity(boardEntity);
     }
 
     public BoardDTO findById(Long id) {

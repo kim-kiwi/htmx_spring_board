@@ -31,9 +31,8 @@ public class GwajeController {
 
     @PostMapping("/create")
     public BoardDTO create(@RequestBody BoardDTO boardDTO) {
-        System.out.println(boardDTO.getTitle());
-        BoardEntity boardEntity = boardService.save(boardDTO);
-        return BoardDTO.fromEntity(boardEntity);
+        BoardDTO boardDTO = boardService.save(boardDTO);
+        return boardDTO;
     }
 
     @PatchMapping("/update/{id}")
