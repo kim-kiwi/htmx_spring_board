@@ -31,21 +31,14 @@ public class GwajeController {
 
     @PostMapping("/create")
     public BoardDTO create(@RequestBody BoardDTO boardDTO) {
-        BoardDTO boardDTO = boardService.save(boardDTO);
-        return boardDTO;
+        return boardService.save(boardDTO);
     }
 
     @PatchMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BoardDTO boardDTO) {
         boardDTO.setId(id);
-        try {
-            BoardDTO board = boardService.update(boardDTO);
-            return ResponseEntity.ok(board);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("error", e.getMessage()));
-        }
+        BoardDTO board = boardService.update(boardDTO);
+        return ResponseEntity.ok(board);
     }
 
     @GetMapping("/view/{id}")
